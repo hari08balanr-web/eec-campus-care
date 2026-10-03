@@ -1,0 +1,263 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Ocean Blue (Default Ambient Theme) */
+    --theme-ocean-blue-primary: #0284c7;
+    --theme-ocean-blue-primary-rgb: 2, 132, 199;
+    --theme-ocean-blue-primary-glow: rgba(2, 132, 199, 0.45);
+    --theme-ocean-blue-secondary: #0ea5e9;
+    --theme-ocean-blue-accent: #f59e0b;
+    --theme-ocean-blue-bg: #f8fafc;
+    --theme-ocean-blue-bg-gradient: radial-gradient(at 0% 0%, rgba(224, 242, 254, 0.8) 0, transparent 50%), 
+                                   radial-gradient(at 100% 0%, rgba(219, 234, 254, 0.7) 0, transparent 50%),
+                                   radial-gradient(at 50% 100%, rgba(240, 249, 255, 0.9) 0, transparent 60%),
+                                   #f1f5f9;
+    --theme-ocean-blue-surface: rgba(255, 255, 255, 0.78);
+    --theme-ocean-blue-border: rgba(255, 255, 255, 0.6);
+    --theme-ocean-blue-text: #0f172a;
+    --theme-ocean-blue-text-muted: #64748b;
+
+    /* Forest Green (SRM EEC College Ambience) */
+    --theme-forest-green-primary: #15803d;
+    --theme-forest-green-primary-rgb: 21, 128, 61;
+    --theme-forest-green-primary-glow: rgba(21, 128, 61, 0.45);
+    --theme-forest-green-secondary: #16a34a;
+    --theme-forest-green-accent: #d97706;
+    --theme-forest-green-bg: #f7fee7;
+    --theme-forest-green-bg-gradient: radial-gradient(at 0% 0%, rgba(220, 252, 231, 0.85) 0, transparent 50%), 
+                                     radial-gradient(at 100% 0%, rgba(254, 240, 138, 0.4) 0, transparent 50%),
+                                     radial-gradient(at 50% 100%, rgba(240, 253, 244, 0.9) 0, transparent 60%),
+                                     #f0fdf4;
+    --theme-forest-green-surface: rgba(255, 255, 255, 0.8);
+    --theme-forest-green-border: rgba(255, 255, 255, 0.65);
+    --theme-forest-green-text: #064e3b;
+    --theme-forest-green-text-muted: #4b5563;
+
+    /* Royal Purple */
+    --theme-royal-purple-primary: #7c3aed;
+    --theme-royal-purple-primary-rgb: 124, 58, 237;
+    --theme-royal-purple-primary-glow: rgba(124, 58, 237, 0.45);
+    --theme-royal-purple-secondary: #8b5cf6;
+    --theme-royal-purple-accent: #ec4899;
+    --theme-royal-purple-bg: #faf5ff;
+    --theme-royal-purple-bg-gradient: radial-gradient(at 0% 0%, rgba(243, 232, 255, 0.9) 0, transparent 50%), 
+                                     radial-gradient(at 100% 0%, rgba(252, 231, 243, 0.6) 0, transparent 50%),
+                                     radial-gradient(at 50% 100%, rgba(245, 243, 255, 0.9) 0, transparent 60%),
+                                     #f3e8ff;
+    --theme-royal-purple-surface: rgba(255, 255, 255, 0.78);
+    --theme-royal-purple-border: rgba(255, 255, 255, 0.6);
+    --theme-royal-purple-text: #2e1065;
+    --theme-royal-purple-text-muted: #6b7280;
+
+    /* Sunset Orange */
+    --theme-sunset-orange-primary: #ea580c;
+    --theme-sunset-orange-primary-rgb: 234, 88, 12;
+    --theme-sunset-orange-primary-glow: rgba(234, 88, 12, 0.45);
+    --theme-sunset-orange-secondary: #f97316;
+    --theme-sunset-orange-accent: #0284c7;
+    --theme-sunset-orange-bg: #fff7ed;
+    --theme-sunset-orange-bg-gradient: radial-gradient(at 0% 0%, rgba(255, 237, 213, 0.9) 0, transparent 50%), 
+                                      radial-gradient(at 100% 0%, rgba(254, 215, 170, 0.6) 0, transparent 50%),
+                                      radial-gradient(at 50% 100%, rgba(255, 247, 237, 0.9) 0, transparent 60%),
+                                      #ffedd5;
+    --theme-sunset-orange-surface: rgba(255, 255, 255, 0.82);
+    --theme-sunset-orange-border: rgba(255, 255, 255, 0.65);
+    --theme-sunset-orange-text: #431407;
+    --theme-sunset-orange-text-muted: #78716c;
+  }
+
+  [data-theme="ocean-blue"] {
+    --primary: var(--theme-ocean-blue-primary);
+    --primary-rgb: var(--theme-ocean-blue-primary-rgb);
+    --primary-glow: var(--theme-ocean-blue-primary-glow);
+    --secondary: var(--theme-ocean-blue-secondary);
+    --accent: var(--theme-ocean-blue-accent);
+    --bg: var(--theme-ocean-blue-bg);
+    --bg-gradient: var(--theme-ocean-blue-bg-gradient);
+    --surface: var(--theme-ocean-blue-surface);
+    --border-color: var(--theme-ocean-blue-border);
+    --text: var(--theme-ocean-blue-text);
+    --text-muted: var(--theme-ocean-blue-text-muted);
+  }
+
+  [data-theme="forest-green"] {
+    --primary: var(--theme-forest-green-primary);
+    --primary-rgb: var(--theme-forest-green-primary-rgb);
+    --primary-glow: var(--theme-forest-green-primary-glow);
+    --secondary: var(--theme-forest-green-secondary);
+    --accent: var(--theme-forest-green-accent);
+    --bg: var(--theme-forest-green-bg);
+    --bg-gradient: var(--theme-forest-green-bg-gradient);
+    --surface: var(--theme-forest-green-surface);
+    --border-color: var(--theme-forest-green-border);
+    --text: var(--theme-forest-green-text);
+    --text-muted: var(--theme-forest-green-text-muted);
+  }
+
+  [data-theme="royal-purple"] {
+    --primary: var(--theme-royal-purple-primary);
+    --primary-rgb: var(--theme-royal-purple-primary-rgb);
+    --primary-glow: var(--theme-royal-purple-primary-glow);
+    --secondary: var(--theme-royal-purple-secondary);
+    --accent: var(--theme-royal-purple-accent);
+    --bg: var(--theme-royal-purple-bg);
+    --bg-gradient: var(--theme-royal-purple-bg-gradient);
+    --surface: var(--theme-royal-purple-surface);
+    --border-color: var(--theme-royal-purple-border);
+    --text: var(--theme-royal-purple-text);
+    --text-muted: var(--theme-royal-purple-text-muted);
+  }
+
+  [data-theme="sunset-orange"] {
+    --primary: var(--theme-sunset-orange-primary);
+    --primary-rgb: var(--theme-sunset-orange-primary-rgb);
+    --primary-glow: var(--theme-sunset-orange-primary-glow);
+    --secondary: var(--theme-sunset-orange-secondary);
+    --accent: var(--theme-sunset-orange-accent);
+    --bg: var(--theme-sunset-orange-bg);
+    --bg-gradient: var(--theme-sunset-orange-bg-gradient);
+    --surface: var(--theme-sunset-orange-surface);
+    --border-color: var(--theme-sunset-orange-border);
+    --text: var(--theme-sunset-orange-text);
+    --text-muted: var(--theme-sunset-orange-text-muted);
+  }
+
+  body {
+    @apply min-h-screen font-sans antialiased text-slate-800;
+    background: var(--bg-gradient, var(--bg));
+    background-attachment: fixed;
+    color: var(--text);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* Glassmorphism & Ambient Glossy Components */
+@layer components {
+  .glass-card {
+    background: var(--surface);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border-color);
+    border-radius: 1.25rem;
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05), 
+                0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .glass-card:hover {
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.09), 
+                0 0 0 1px rgba(255, 255, 255, 0.7) inset,
+                0 0 20px -5px var(--primary-glow);
+  }
+
+  .glass-nav {
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.04);
+  }
+
+  .glass-input {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(203, 213, 225, 0.8);
+    border-radius: 0.875rem;
+    padding: 0.85rem 1.15rem;
+    width: 100%;
+    color: var(--text);
+    font-size: 0.95rem;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02) inset;
+  }
+
+  .glass-input:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.95);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-glow), 0 2px 6px rgba(0,0,0,0.03);
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.875rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 15px -2px var(--primary-glow);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px -4px var(--primary-glow);
+    filter: brightness(1.05);
+  }
+
+  .btn-primary:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  .btn-outline {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(8px);
+    color: var(--primary);
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.875rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 1.5px solid var(--primary);
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .btn-outline:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px -3px var(--primary-glow);
+  }
+}
+
+/* Animations */
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.02); }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 3s infinite ease-in-out;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.5);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
