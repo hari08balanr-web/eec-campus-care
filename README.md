@@ -40,4 +40,3 @@ Create a `.env` file or export these variables:
 ## Default Admin
 On startup, a default admin is created if not exists:
 - Email: `warnerthepro@gmail.com`
-- Password: `admin123`
