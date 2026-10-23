@@ -37,6 +37,21 @@ const AdminComplaints = () => {
     fetchComplaints();
   }, [categoryFilter, statusFilter]);
 
+  const handleDeleteComplaint = async (complaintId, ticketCode) => {
+    const confirmDelete = window.confirm(
+      `Are you sure you want to permanently delete complaint ${ticketCode || ''}?\nThis action cannot be undone.`
+    );
+    if (!confirmDelete) return;
+
+    try {
+      await api.deleteComplaint(complaintId);
+      setComplaints(prev => prev.filter(c => (c.id || c._id) !== complaintId));
+    } catch (err) {
+      console.error('Failed to delete complaint:', err);
+      alert(err.response?.data?.message || 'Failed to delete complaint. Please try again.');
+    }
+  };
+
   // Client-side search by ticket code or keyword
   const filtered = complaints.filter(c => {
     const q = searchCode.toLowerCase().trim();
@@ -136,6 +151,7 @@ const AdminComplaints = () => {
               key={complaint.id || complaint._id} 
               complaint={complaint} 
               isAdmin={true} 
+              onDelete={handleDeleteComplaint}
             />
           ))}
         </div>

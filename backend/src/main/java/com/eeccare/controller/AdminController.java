@@ -49,6 +49,12 @@ public class AdminController {
         return ResponseEntity.ok(complaintService.updateStatus(id, request));
     }
 
+    @DeleteMapping("/complaints/{id}")
+    public ResponseEntity<Void> deleteComplaint(@PathVariable UUID id) {
+        complaintService.deleteComplaint(id);
+        return ResponseEntity.noContent().build();
+    }
+
     @GetMapping("/stats")
     public ResponseEntity<AdminStatsResponse> getStats() {
         return ResponseEntity.ok(complaintService.getStats());

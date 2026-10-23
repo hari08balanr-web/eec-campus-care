@@ -104,7 +104,7 @@ public class DataSourceConfig {
 
     private DataSource createLocalDataSource() {
         HikariConfig config = new HikariConfig();
-        config.setJdbcUrl("jdbc:h2:file:./data/eeccaredb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL");
+        config.setJdbcUrl("jdbc:h2:file:./data/eeccaredb;DB_CLOSE_DELAY=-1;MODE=PostgreSQL");
         config.setUsername("sa");
         config.setPassword("");
         config.setDriverClassName("org.h2.Driver");

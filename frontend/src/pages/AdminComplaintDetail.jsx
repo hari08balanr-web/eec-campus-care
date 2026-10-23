@@ -4,7 +4,7 @@ import StatusBadge from '../components/StatusBadge';
 import { formatDate } from '../utils/helpers';
 import { 
   FiArrowLeft, FiUser, FiPhone, FiMail, FiCheckCircle, 
-  FiMapPin, FiCalendar, FiClock, FiAlertCircle, FiVideo, FiImage
+  FiMapPin, FiCalendar, FiClock, FiAlertCircle, FiVideo, FiImage, FiTrash2
 } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 import api from '../services/api';
@@ -19,6 +19,7 @@ const AdminComplaintDetail = () => {
   const [remarks, setRemarks] = useState('');
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const [updateSuccess, setUpdateSuccess] = useState(false);
   const [error, setError] = useState(null);
 
@@ -76,6 +77,26 @@ const AdminComplaintDetail = () => {
     }
   };
 
+  const handleDelete = async () => {
+    if (!complaint) return;
+    const confirmDelete = window.confirm(
+      `Are you sure you want to permanently delete complaint ${complaint.ticketCode}?\nThis action cannot be undone.`
+    );
+    if (!confirmDelete) return;
+
+    setDeleting(true);
+    try {
+      const complaintId = complaint.id || id;
+      await api.deleteComplaint(complaintId);
+      alert(`Complaint ${complaint.ticketCode} has been successfully deleted.`);
+      navigate('/admin/complaints');
+    } catch (err) {
+      console.error('Failed to delete complaint:', err);
+      alert(err.response?.data?.message || 'Failed to delete complaint. Please try again.');
+      setDeleting(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center py-28 space-y-4">
@@ -104,15 +125,26 @@ const AdminComplaintDetail = () => {
     <div className="max-w-6xl mx-auto space-y-6 pb-16">
       
       {/* Top Breadcrumb Navigation */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between flex-wrap gap-3">
         <button 
           onClick={() => navigate('/admin/complaints')} 
           className="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-primary transition-colors px-3 py-1.5 rounded-lg hover:bg-white/60"
         >
           <FiArrowLeft /> Back to Complaints List
         </button>
-        <div className="text-xs font-mono bg-white/70 px-3 py-1 rounded-full border border-slate-200 text-slate-600">
-          ID: {complaint.id || id}
+        <div className="flex items-center gap-3">
+          <div className="text-xs font-mono bg-white/70 px-3 py-1 rounded-full border border-slate-200 text-slate-600">
+            ID: {complaint.ticketCode || complaint.id || id}
+          </div>
+          <button
+            type="button"
+            onClick={handleDelete}
+            disabled={deleting}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-red-600 bg-red-50 hover:bg-red-100 border border-red-200 transition-colors shadow-sm disabled:opacity-50"
+            title="Permanently Delete Complaint"
+          >
+            <FiTrash2 className="text-sm" /> {deleting ? 'Deleting...' : 'Delete Complaint'}
+          </button>
         </div>
       </div>
 
@@ -316,6 +348,29 @@ const AdminComplaintDetail = () => {
                 </a>
               )}
             </div>
+          </motion.div>
+
+          {/* Danger Zone: Delete Complaint */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.25 }}
+            className="glass-card p-5 border border-red-200/80 bg-red-50/20 space-y-3"
+          >
+            <h4 className="text-xs font-bold uppercase tracking-wider text-red-600 flex items-center gap-1.5">
+              <FiTrash2 /> Grievance Management
+            </h4>
+            <p className="text-[11px] text-slate-500 leading-relaxed">
+              Permanently delete this grievance and all associated evidence from the college portal.
+            </p>
+            <button
+              type="button"
+              onClick={handleDelete}
+              disabled={deleting}
+              className="w-full py-2 px-3 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-all shadow-sm shadow-red-200 disabled:opacity-50"
+            >
+              <FiTrash2 /> {deleting ? 'Deleting Record...' : 'Delete Complaint'}
+            </button>
           </motion.div>
 
         </div>

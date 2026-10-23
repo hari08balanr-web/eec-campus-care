@@ -42,6 +42,7 @@ const api = {
   },
   getAdminComplaintDetail: (id) => apiClient.get(`/admin/complaints/${id}`),
   updateComplaintStatus: (id, data) => apiClient.put(`/admin/complaints/${id}/status`, data),
+  deleteComplaint: (id) => apiClient.delete(`/admin/complaints/${id}`),
   getAdminStats: () => apiClient.get('/admin/stats'),
   addSubAdmin: (data) => apiClient.post('/admin/sub-admins', data),
 };

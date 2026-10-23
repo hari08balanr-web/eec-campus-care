@@ -131,6 +131,12 @@ public class ComplaintService {
         return ComplaintResponse.fromEntity(updated);
     }
 
+    public void deleteComplaint(UUID id) {
+        Complaint complaint = complaintRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Complaint not found with id: " + id));
+        complaintRepository.delete(complaint);
+    }
+
     public AdminStatsResponse getStats() {
         long total = complaintRepository.count();
         long pending = complaintRepository.countByStatus("Pending");
