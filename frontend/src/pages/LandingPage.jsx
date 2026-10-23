@@ -52,7 +52,7 @@ const LandingPage = () => {
     } catch (error) {
       console.error(error);
       if (!error.response) {
-        alert("Cannot reach Java Backend (http://localhost:8080)! Please make sure the Java backend is running.");
+        alert("Cannot reach server backend. Please check your internet connection.");
       } else {
         alert(error.response?.data?.message || error.response?.data?.error || "Google login session failed. Please try again.");
       }
@@ -76,7 +76,7 @@ const LandingPage = () => {
       navigate('/dashboard');
     } catch (err) {
       if (!err.response) {
-        alert("Cannot reach Java Backend (http://localhost:8080)! Please make sure the Java backend is running.");
+        alert("Cannot reach server backend. Please check your internet connection.");
       } else {
         alert(err.response?.data?.message || err.response?.data?.error || "Login failed. Please verify your details.");
       }
@@ -95,7 +95,7 @@ const LandingPage = () => {
       navigate('/dashboard');
     } catch (error) {
       if (!error.response) {
-        alert("Cannot reach Java Backend (http://localhost:8080)! Please make sure the Java backend is running.");
+        alert("Cannot reach server backend. Please check your internet connection.");
       } else {
         alert(error.response?.data?.message || error.response?.data?.error || "Registration failed. Please check if this email/roll number is already registered.");
       }

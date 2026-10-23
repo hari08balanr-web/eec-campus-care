@@ -25,7 +25,7 @@ const AdminLogin = () => {
       navigate('/admin/dashboard');
     } catch (err) {
       if (!err.response) {
-        setError('Cannot reach Java backend at http://localhost:8080. Please make sure the Java backend is started!');
+        setError('Cannot reach server backend. Please check your internet connection or try again shortly.');
       } else {
         setError(err.response?.data?.message || err.response?.data?.error || 'Invalid credentials. Please try again.');
       }

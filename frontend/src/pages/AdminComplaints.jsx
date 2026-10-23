@@ -50,7 +50,7 @@ const AdminComplaints = () => {
     } catch (err) {
       console.error('Failed to delete complaint:', err);
       if (err.code === 'ERR_NETWORK' || !err.response) {
-        alert('Cannot reach Java Backend (http://localhost:8080)! Please ensure the Java backend is running so the complaint can be deleted.');
+        alert('Cannot reach backend server. Please check your network connection.');
       } else {
         alert(err.response?.data?.message || err.response?.data?.error || 'Failed to delete complaint. Please try again.');
       }

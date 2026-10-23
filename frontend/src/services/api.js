@@ -1,6 +1,19 @@
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
+// Automatically detect API base URL:
+// 1. If running on Render, Vercel, or any remote host in the browser, use same-origin relative '/api'
+// 2. If running locally (localhost / 127.0.0.1), use 'http://localhost:8080/api'
+const getApiBaseUrl = () => {
+  if (typeof window !== 'undefined') {
+    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    if (!isLocalhost) {
+      return '/api';
+    }
+  }
+  return import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
+};
+
+const API_URL = getApiBaseUrl();
 
 const apiClient = axios.create({
   baseURL: API_URL,

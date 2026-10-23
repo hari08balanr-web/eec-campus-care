@@ -94,7 +94,7 @@ const AdminComplaintDetail = () => {
       console.error('Failed to delete complaint:', err);
       const msg = err.response?.data?.message || err.response?.data?.error || err.message;
       if (err.code === 'ERR_NETWORK' || !err.response) {
-        alert('Cannot reach Java Backend (http://localhost:8080)! Please ensure the Java backend is running so the complaint can be deleted from the database.');
+        alert('Cannot reach backend server. Please check your network connection.');
       } else {
         alert(msg || 'Failed to delete complaint. Please try again.');
       }
