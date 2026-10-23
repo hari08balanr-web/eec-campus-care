@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: eec-care-backend
+    runtime: docker
+    dockerfilePath: Dockerfile
+    dockerContext: .
+    plan: free
+    region: singapore
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: cloud
