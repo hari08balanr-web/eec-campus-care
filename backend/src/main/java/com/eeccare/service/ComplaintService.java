@@ -87,10 +87,28 @@ public class ComplaintService {
                 .orElseThrow(() -> new ResourceNotFoundException("Complaint not found for ticket code: " + ticketCode));
     }
 
+    public Complaint findByIdOrCode(String idOrCode) {
+        Complaint complaint = null;
+        try {
+            UUID uuid = UUID.fromString(idOrCode);
+            complaint = complaintRepository.findById(uuid).orElse(null);
+        } catch (IllegalArgumentException ignored) {}
+
+        if (complaint == null) {
+            complaint = complaintRepository.findByTicketCode(idOrCode)
+                    .orElseThrow(() -> new ResourceNotFoundException("Complaint not found for identifier: " + idOrCode));
+        }
+        return complaint;
+    }
+
     public ComplaintResponse getComplaintById(UUID id) {
         return complaintRepository.findById(id)
                 .map(ComplaintResponse::fromEntity)
                 .orElseThrow(() -> new ResourceNotFoundException("Complaint not found for id: " + id));
+    }
+
+    public ComplaintResponse getComplaintByIdOrCode(String idOrCode) {
+        return ComplaintResponse.fromEntity(findByIdOrCode(idOrCode));
     }
 
     public List<ComplaintResponse> getAllComplaints(String category, String status, String search) {
@@ -112,8 +130,11 @@ public class ComplaintService {
     }
 
     public ComplaintResponse updateStatus(UUID id, StatusUpdateRequest request) {
-        Complaint complaint = complaintRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Complaint not found"));
+        return updateStatus(id.toString(), request);
+    }
+
+    public ComplaintResponse updateStatus(String idOrCode, StatusUpdateRequest request) {
+        Complaint complaint = findByIdOrCode(idOrCode);
                 
         complaint.setStatus(request.getStatus());
         complaint.setAdminRemarks(request.getAdminRemarks());
@@ -132,8 +153,11 @@ public class ComplaintService {
     }
 
     public void deleteComplaint(UUID id) {
-        Complaint complaint = complaintRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Complaint not found with id: " + id));
+        deleteComplaint(id.toString());
+    }
+
+    public void deleteComplaint(String idOrCode) {
+        Complaint complaint = findByIdOrCode(idOrCode);
         complaintRepository.delete(complaint);
     }
 

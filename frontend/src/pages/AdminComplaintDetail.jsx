@@ -86,13 +86,18 @@ const AdminComplaintDetail = () => {
 
     setDeleting(true);
     try {
-      const complaintId = complaint.id || id;
+      const complaintId = complaint.id || complaint.ticketCode || id;
       await api.deleteComplaint(complaintId);
-      alert(`Complaint ${complaint.ticketCode} has been successfully deleted.`);
+      alert(`Complaint ${complaint.ticketCode || complaintId} has been successfully deleted.`);
       navigate('/admin/complaints');
     } catch (err) {
       console.error('Failed to delete complaint:', err);
-      alert(err.response?.data?.message || 'Failed to delete complaint. Please try again.');
+      const msg = err.response?.data?.message || err.response?.data?.error || err.message;
+      if (err.code === 'ERR_NETWORK' || !err.response) {
+        alert('Cannot reach Java Backend (http://localhost:8080)! Please ensure the Java backend is running so the complaint can be deleted from the database.');
+      } else {
+        alert(msg || 'Failed to delete complaint. Please try again.');
+      }
       setDeleting(false);
     }
   };

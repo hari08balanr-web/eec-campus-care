@@ -5,7 +5,7 @@ import { formatDate, truncateText } from '../utils/helpers';
 import { FiChevronRight, FiCalendar, FiTag, FiTrash2 } from 'react-icons/fi';
 
 const ComplaintCard = ({ complaint, isAdmin = false, onDelete = null }) => {
-  const complaintId = complaint.id || complaint._id;
+  const complaintId = complaint.id || complaint._id || complaint.ticketCode;
   const linkPath = isAdmin ? `/admin/complaints/${complaintId}` : `/track/${complaint.ticketCode}`;
 
   const handleDeleteClick = (e) => {

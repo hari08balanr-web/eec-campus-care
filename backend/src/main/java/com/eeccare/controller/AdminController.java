@@ -38,19 +38,19 @@ public class AdminController {
     }
 
     @GetMapping("/complaints/{id}")
-    public ResponseEntity<ComplaintResponse> getComplaintDetail(@PathVariable UUID id) {
-        return ResponseEntity.ok(complaintService.getComplaintById(id));
+    public ResponseEntity<ComplaintResponse> getComplaintDetail(@PathVariable String id) {
+        return ResponseEntity.ok(complaintService.getComplaintByIdOrCode(id));
     }
 
     @PutMapping("/complaints/{id}/status")
     public ResponseEntity<ComplaintResponse> updateStatus(
-            @PathVariable UUID id,
+            @PathVariable String id,
             @Valid @RequestBody StatusUpdateRequest request) {
         return ResponseEntity.ok(complaintService.updateStatus(id, request));
     }
 
     @DeleteMapping("/complaints/{id}")
-    public ResponseEntity<Void> deleteComplaint(@PathVariable UUID id) {
+    public ResponseEntity<Void> deleteComplaint(@PathVariable String id) {
         complaintService.deleteComplaint(id);
         return ResponseEntity.noContent().build();
     }
