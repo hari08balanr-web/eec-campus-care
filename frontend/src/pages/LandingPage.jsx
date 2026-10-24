@@ -46,7 +46,7 @@ const LandingPage = () => {
     rollNo: '',
     mobile: '',
     department: 'Artificial Intelligence and Data Science',
-    className: 'A',
+    className: '',
     year: '1',
     email: '',
     password: '',
@@ -311,7 +311,7 @@ const LandingPage = () => {
                       type="email" 
                       value={loginEmail} 
                       onChange={(e) => setLoginEmail(e.target.value)} 
-                      placeholder="e.g. 310625243063@eec.srmrmp.edu.in" 
+                      placeholder="e.g. student@eec.srmrmp.edu.in" 
                       className="glass-input pl-9" 
                     />
                   </div>
@@ -417,7 +417,7 @@ const LandingPage = () => {
                       type="text" 
                       name="name" 
                       value={formData.name} 
-                      placeholder="e.g. Haribalan R" 
+                      placeholder="e.g. Student Full Name" 
                       onChange={handleInputChange} 
                       className="glass-input !py-2 !text-xs" 
                     />
@@ -431,7 +431,7 @@ const LandingPage = () => {
                       type="text" 
                       name="rollNo" 
                       value={formData.rollNo} 
-                      placeholder="e.g. 310625243063" 
+                      placeholder="e.g. 3106XXXXXXXX" 
                       onChange={handleInputChange} 
                       className="glass-input !py-2 !text-xs" 
                     />
@@ -448,7 +448,7 @@ const LandingPage = () => {
                     type="email" 
                     name="email" 
                     value={formData.email} 
-                    placeholder="e.g. 310625243063@eec.srmrmp.edu.in" 
+                    placeholder="e.g. student@eec.srmrmp.edu.in" 
                     onChange={handleInputChange} 
                     className="glass-input !py-2 !text-xs" 
                   />
@@ -481,7 +481,7 @@ const LandingPage = () => {
                       type="text" 
                       name="className" 
                       value={formData.className} 
-                      placeholder="e.g. AIDS-A" 
+                      placeholder="e.g. Section A" 
                       onChange={handleInputChange} 
                       className="glass-input !py-2 !text-xs" 
                     />
