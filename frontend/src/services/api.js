@@ -43,7 +43,15 @@ apiClient.interceptors.request.use((config) => {
 
 const api = {
   // User Routes
-  registerUser: (data) => apiClient.post('/users/register', data),
+  registerUser: (data) => {
+    if (typeof FormData !== 'undefined' && data instanceof FormData) {
+      return apiClient.post('/users/register', data, {
+        headers: { 'Content-Type': undefined }
+      });
+    }
+    return apiClient.post('/users/register', data);
+  },
+  studentLogin: (data) => apiClient.post('/users/login', data),
   googleAuth: (data) => apiClient.post('/users/google-auth', data),
   getProfile: () => apiClient.get('/users/profile'),
 

@@ -66,4 +66,39 @@ public class EmailService {
             log.warn("Notice: Status update email not sent (Mail not configured or offline): {}", e.getMessage());
         }
     }
+
+    @Async
+    public void sendAdminNewComplaintAlert(String toAdminEmail, com.eeccare.model.Complaint complaint) {
+        try {
+            Context context = new Context();
+            context.setVariable("ticketCode", complaint.getTicketCode());
+            context.setVariable("name", complaint.getName());
+            context.setVariable("className", complaint.getClassName());
+            context.setVariable("year", complaint.getYear());
+            context.setVariable("email", complaint.getEmail());
+            context.setVariable("mobile", complaint.getMobile());
+            context.setVariable("category", complaint.getCategory());
+            context.setVariable("block", complaint.getBlock());
+            context.setVariable("floor", complaint.getFloor());
+            context.setVariable("date", complaint.getComplaintDate() != null ? complaint.getComplaintDate().toString() : "");
+            context.setVariable("time", complaint.getComplaintTime() != null ? complaint.getComplaintTime().toString() : "");
+            context.setVariable("description", complaint.getDescription());
+            context.setVariable("photoUrl", complaint.getPhotoUrl());
+            context.setVariable("actionUrl", "http://localhost:5173/admin/complaints");
+            
+            String htmlContent = templateEngine.process("admin-complaint-notification", context);
+            
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+            
+            helper.setTo(toAdminEmail);
+            helper.setSubject("🚨 [EEC Care Admin Alert] New Grievance - " + complaint.getTicketCode() + " (" + complaint.getCategory() + ")");
+            helper.setText(htmlContent, true);
+            
+            mailSender.send(message);
+            log.info("Admin complaint alert email sent successfully to {}", toAdminEmail);
+        } catch (Exception e) {
+            log.warn("Notice: Admin alert email to {} not sent (Mail not configured or offline): {}", toAdminEmail, e.getMessage());
+        }
+    }
 }

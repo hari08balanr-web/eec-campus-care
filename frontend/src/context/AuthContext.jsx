@@ -32,6 +32,12 @@ export const AuthProvider = ({ children }) => {
     return res.data;
   };
 
+  const studentLogin = async (email, password) => {
+    const res = await api.studentLogin({ email, password });
+    setUser(res.data);
+    return res.data;
+  };
+
   const register = async (userData) => {
     const res = await api.registerUser(userData);
     setUser(res.data);
@@ -56,6 +62,7 @@ export const AuthProvider = ({ children }) => {
       isAuthenticated: !!user,
       isAdmin: !!admin,
       login,
+      studentLogin,
       register,
       googleAuth,
       logout

@@ -4,9 +4,12 @@ import com.eeccare.dto.AdminStatsResponse;
 import com.eeccare.dto.ComplaintResponse;
 import com.eeccare.dto.StatusUpdateRequest;
 import com.eeccare.exception.ResourceNotFoundException;
+import com.eeccare.model.Admin;
 import com.eeccare.model.Complaint;
+import com.eeccare.repository.AdminRepository;
 import com.eeccare.repository.ComplaintRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,9 +23,11 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ComplaintService {
 
     private final ComplaintRepository complaintRepository;
+    private final AdminRepository adminRepository;
     private final SupabaseStorageService storageService;
     private final EmailService emailService;
 
@@ -63,8 +68,20 @@ public class ComplaintService {
 
         Complaint savedComplaint = complaintRepository.save(complaint);
         
-        // Send email async
+        // 1. Send confirmation email to student
         emailService.sendComplaintConfirmation(email, name, ticketCode);
+
+        // 2. Notify all Administrators
+        try {
+            List<Admin> admins = adminRepository.findAll();
+            for (Admin admin : admins) {
+                if (admin.getEmail() != null && !admin.getEmail().isBlank()) {
+                    emailService.sendAdminNewComplaintAlert(admin.getEmail(), savedComplaint);
+                }
+            }
+        } catch (Exception e) {
+            log.warn("Could not dispatch admin alerts: {}", e.getMessage());
+        }
 
         return ComplaintResponse.fromEntity(savedComplaint);
     }

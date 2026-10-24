@@ -21,6 +21,9 @@ public class User {
     @Column(nullable = false)
     private String name;
 
+    @Builder.Default
+    private String collegeName = "Eswari Engineering College";
+
     @Column(unique = true)
     private String rollNo;
 
@@ -35,6 +38,10 @@ public class User {
 
     @Column(unique = true, nullable = false)
     private String email;
+
+    private String password;
+
+    private String idCardUrl;
 
     private String googleId;
 

@@ -20,4 +20,8 @@ public class UserRegisterRequest {
     @Email
     @NotBlank
     private String email;
+
+    private String collegeName;
+    private String password;
+    private String idCardUrl;
 }
