@@ -1,16 +1,26 @@
 import axios from 'axios';
 
 // Automatically detect API base URL:
-// 1. If running on Render, Vercel, or any remote host in the browser, use same-origin relative '/api'
-// 2. If running locally (localhost / 127.0.0.1), use 'http://localhost:8080/api'
+// 1. If running locally (localhost:5173), route to local Spring Boot (http://localhost:8080/api)
+// 2. If running on Render (eec-campus-care.onrender.com), route to same-origin (/api)
+// 3. If running on Vercel (*.vercel.app), route to live Render backend (https://eec-campus-care.onrender.com/api)
 const getApiBaseUrl = () => {
+  if (import.meta.env.VITE_API_URL && import.meta.env.VITE_API_URL.startsWith('http') && !import.meta.env.VITE_API_URL.includes('localhost')) {
+    return import.meta.env.VITE_API_URL;
+  }
+
   if (typeof window !== 'undefined') {
-    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-    if (!isLocalhost) {
+    const hostname = window.location.hostname;
+    if (hostname === 'localhost' || hostname === '127.0.0.1') {
+      return 'http://localhost:8080/api';
+    }
+    if (hostname.includes('onrender.com')) {
       return '/api';
     }
+    return 'https://eec-campus-care.onrender.com/api';
   }
-  return import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
+
+  return 'http://localhost:8080/api';
 };
 
 const API_URL = getApiBaseUrl();
