@@ -49,7 +49,7 @@ const api = {
 
   // Complaint Routes
   createComplaint: (formData) => apiClient.post('/complaints', formData, {
-    headers: { 'Content-Type': 'multipart/form-data' }
+    headers: { 'Content-Type': undefined }
   }),
   getMyComplaints: (email) => apiClient.get(`/complaints/my?email=${email}`),
   trackComplaint: (ticketCode) => apiClient.get(`/complaints/track/${ticketCode}`),

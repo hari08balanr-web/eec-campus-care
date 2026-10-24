@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import StatusBadge from './StatusBadge';
-import { formatDate, truncateText } from '../utils/helpers';
-import { FiChevronRight, FiCalendar, FiTag, FiTrash2 } from 'react-icons/fi';
+import { formatDate, truncateText, resolveMediaUrl } from '../utils/helpers';
+import { FiChevronRight, FiCalendar, FiTag, FiTrash2, FiImage } from 'react-icons/fi';
 
 const ComplaintCard = ({ complaint, isAdmin = false, onDelete = null }) => {
   const complaintId = complaint.id || complaint._id || complaint.ticketCode;
   const linkPath = isAdmin ? `/admin/complaints/${complaintId}` : `/track/${complaint.ticketCode}`;
+  const photo = resolveMediaUrl(complaint.photoUrl);
 
   const handleDeleteClick = (e) => {
     e.preventDefault();
@@ -30,6 +31,21 @@ const ComplaintCard = ({ complaint, isAdmin = false, onDelete = null }) => {
           <StatusBadge status={complaint.status} />
         </div>
         
+        {/* Photo Evidence Preview */}
+        {photo && (
+          <div className="mb-3 rounded-xl overflow-hidden h-36 bg-slate-900/5 border border-slate-200/80 relative">
+            <img 
+              src={photo} 
+              alt="Live Evidence" 
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              onError={(e) => { e.currentTarget.parentElement.style.display = 'none'; }}
+            />
+            <span className="absolute bottom-2 left-2 px-2 py-0.5 rounded-md bg-black/60 text-white text-[10px] font-semibold flex items-center gap-1 backdrop-blur-sm">
+              <FiImage /> Photo Evidence
+            </span>
+          </div>
+        )}
+
         <p className="text-sm mb-4 opacity-80">
           {truncateText(complaint.description, 80)}
         </p>

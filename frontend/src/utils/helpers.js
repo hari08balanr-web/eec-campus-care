@@ -29,3 +29,18 @@ export const truncateText = (text, maxLength = 100) => {
 export const generateTicketDisplay = (code) => {
   return code || 'N/A';
 };
+
+export const resolveMediaUrl = (url) => {
+  if (!url) return null;
+  if (url.startsWith('https://') || url.startsWith('http://')) {
+    if (url.includes('localhost:8080') && typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+      const path = url.split('localhost:8080')[1];
+      if (window.location.hostname.includes('onrender.com')) {
+        return path;
+      }
+      return 'https://eec-campus-care.onrender.com' + path;
+    }
+    return url;
+  }
+  return url;
+};

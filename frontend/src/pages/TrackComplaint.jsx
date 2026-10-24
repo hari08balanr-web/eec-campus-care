@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FiSearch, FiCheck, FiCopy, FiClock, FiMapPin, FiCalendar } from 'react-icons/fi';
 import StatusBadge from '../components/StatusBadge';
-import { formatDate } from '../utils/helpers';
+import { formatDate, resolveMediaUrl } from '../utils/helpers';
 import { motion } from 'framer-motion';
 import api from '../services/api';
 
@@ -292,15 +292,15 @@ const TrackComplaint = () => {
             </div>
 
             {/* Media */}
-            {(complaint.photoUrl || complaint.videoUrl) && (
+            {(resolveMediaUrl(complaint.photoUrl) || resolveMediaUrl(complaint.videoUrl)) && (
               <div>
                 <h4 style={{ fontSize: '0.8rem', fontWeight: 600, opacity: 0.6, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.75rem' }}>
                   Attached Media
                 </h4>
-                {complaint.photoUrl && (
+                {resolveMediaUrl(complaint.photoUrl) && (
                   <img
-                    src={complaint.photoUrl}
-                    alt="Complaint"
+                    src={resolveMediaUrl(complaint.photoUrl)}
+                    alt="Complaint Evidence"
                     style={{
                       width: '100%', borderRadius: '12px',
                       border: '1px solid rgba(128,128,128,0.15)',
@@ -308,9 +308,9 @@ const TrackComplaint = () => {
                     }}
                   />
                 )}
-                {complaint.videoUrl && (
+                {resolveMediaUrl(complaint.videoUrl) && (
                   <video
-                    src={complaint.videoUrl}
+                    src={resolveMediaUrl(complaint.videoUrl)}
                     controls
                     style={{
                       width: '100%', borderRadius: '12px',

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import StatusBadge from '../components/StatusBadge';
-import { formatDate } from '../utils/helpers';
+import { formatDate, resolveMediaUrl } from '../utils/helpers';
 import { 
   FiArrowLeft, FiUser, FiPhone, FiMail, FiCheckCircle, 
   FiMapPin, FiCalendar, FiClock, FiAlertCircle, FiVideo, FiImage, FiTrash2
@@ -217,14 +217,14 @@ const AdminComplaintDetail = () => {
             </div>
 
             {/* Attached Photo Evidence */}
-            {complaint.photoUrl && (
+            {resolveMediaUrl(complaint.photoUrl) && (
               <div>
                 <span className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5 mb-2">
                   <FiImage className="text-primary" /> Live Captured Photo Evidence
                 </span>
                 <div className="rounded-2xl overflow-hidden border border-slate-200/80 shadow-md bg-black max-w-xl">
                   <img 
-                    src={complaint.photoUrl} 
+                    src={resolveMediaUrl(complaint.photoUrl)} 
                     alt="Complaint Evidence" 
                     className="w-full max-h-96 object-contain"
                   />
@@ -233,14 +233,14 @@ const AdminComplaintDetail = () => {
             )}
 
             {/* Attached Video Evidence */}
-            {complaint.videoUrl && (
+            {resolveMediaUrl(complaint.videoUrl) && (
               <div>
                 <span className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5 mb-2">
                   <FiVideo className="text-primary" /> Live Recorded Video Evidence
                 </span>
                 <div className="rounded-2xl overflow-hidden border border-slate-200/80 shadow-md bg-black max-w-xl">
                   <video 
-                    src={complaint.videoUrl} 
+                    src={resolveMediaUrl(complaint.videoUrl)} 
                     controls 
                     playsInline 
                     className="w-full max-h-96"
